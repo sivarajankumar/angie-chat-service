@@ -9,8 +9,8 @@ exports.findAll = function(req, res){
 };
 
 exports.createChannel = function(req, res){
-	var channelname = req.body.channelname.toLowerCase();
-	var username = req.body.username.toLowerCase();
+	var channelname = req.body.channelname;
+	var username = req.body.username;
 	var user = _und.where(globals.userList, { id: username });
 	if ( user.length === 0 ) {
 		res.send('usernamenotfound', 403);
@@ -18,8 +18,8 @@ exports.createChannel = function(req, res){
 		var channel = _und.where(globals.channelList, { name: channelname });
 		if ( channel.length > 0 ) {
 			res.send('channelexists', 403);
-		} else if (validateChannelname(channelname)) {
-			res.send('containsnonalphanumeric', 403);
+		// } else if (validateChannelname(channelname)) {
+		// 	res.send('containsnonalphanumeric', 403);
 		} else {
 			globals.channelList.push({ 
 										name: channelname,
@@ -40,7 +40,7 @@ exports.deleteAllChannels = function(req,res){
 }
 
 exports.findByChannelName = function(req, res){
-	var channelname = req.params.channelname.toLowerCase();
+	var channelname = req.params.channelname;
 	var channel = _und.where(globals.channelList, { name: channelname });
 	if ( channel.length > 0 ) {
 		res.send(channel[0]);
@@ -58,22 +58,22 @@ exports.updateChannel = function(req, res){
 }
 
 exports.deleteChannel = function(req, res){
-	var channelname = req.params.channelname.toLowerCase();
+	var channelname = req.params.channelname;
 	var channel = _und.where(globals.channelList, { name: channelname });
 	if ( channel.length > 0 ) {
 		globals.channelList = _und.filter(globals.channelList, function(channel) { return channel.name !== channelname});
 		res.send("deleting channelname: " + channelname + ".");	
 	} else {
-		res.send('channelnotfound', 403);
+		res.send('channelnotfound', 404);
 	}		
 }
 
 exports.join = function(req, res) {
-	var channelname = req.params.channelname.toLowerCase();
-	var username = req.body.username.toLowerCase();
+	var channelname = req.params.channelname;
+	var username = req.body.username;
 	var user = _und.where(globals.userList, { id: username });
 	if ( user.length === 0 ) {
-		res.send('usernamenotfound', 403);
+		res.send('usernamenotfound', 404);
 	} else{
 		var channel = (_und.where(globals.channelList, { name: channelname }))[0]; 
 		console.log(channel);
@@ -87,11 +87,11 @@ exports.join = function(req, res) {
 }
 
 exports.leave = function(req, res) {
-	var channelname = req.params.channelname.toLowerCase();
-	var username = req.body.username.toLowerCase();
+	var channelname = req.params.channelname;
+	var username = req.body.username;
 	var user = _und.where(globals.userList, { id: username });
 	if ( user.length === 0 ) {
-		res.send('usernamenotfound', 403);
+		res.send('usernamenotfound', 404);
 	} else{
 		var channel = (_und.where(globals.channelList, { name: channelname }))[0]; 
 		console.log(channel);
@@ -102,4 +102,31 @@ exports.leave = function(req, res) {
 			res.send('removing user from: ' + channelname + ".");
 		}
 	}
+}
+
+exports.addMessage = function(req, res) {
+	var channelname = req.params.channelname;
+	var username = req.body.username;
+	var message = req.body.message;
+	var user = _und.where(globals.userList, { id: username });
+	if ( user.length === 0 ) {
+		res.send('usernamenotfound', 404);
+	} else{
+		var channel = (_und.where(globals.channelList, { name: channelname }))[0]; 
+		if (! _und.contains(channel.members, username)) {
+			res.send('notamember', 403);
+		} else {
+			channel.messages.push({
+									poster: username,
+									message: message
+								  });
+			res.send(username + " wrote: " + message + " on: " + channelname);
+		}
+	}
+}
+
+exports.listMessages = function(req, res) {
+	var channelname = req.params.channelname;
+	var channel = (_und.where(globals.channelList, { name: channelname }))[0];
+	res.send(JSON.stringify(channel.messages));
 }

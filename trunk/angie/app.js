@@ -15,8 +15,36 @@ var app = express();
 
 globals = {
         userList: [{id: 'Kjartan'}, {id: 'Böðvar'}],
-        channelList: [  {name: 'cars', owner: 'Kjartan', members: [] }
-                       , {name: 'bikes', owner: 'Böðvar', members: [] } 
+        channelList: [  {
+                          name: 'cars', 
+                          owner: 'Kjartan', 
+                          members: [] , 
+                          messages: [
+                            { 
+                              poster: 'Kjartan',
+                              message: 'Volvo er best'
+                            },
+                            {
+                              poster: 'Böðvar',
+                              message: 'Nei, toyota er best'
+                            }
+                          ]
+                        }, 
+                        {
+                          name: 'bikes', 
+                          owner: 'Böðvar', 
+                          members: [],
+                          messages: [
+                            {
+                              poster: 'Böðvar',
+                              message: 'Trek er best'
+                            },
+                            {
+                              poster: 'Kjartan',
+                              message: 'Nei, mongoose er best'
+                            }
+                          ] 
+                        } 
                      ]
 }
 
@@ -60,6 +88,9 @@ app.delete('/channels/:channelname', channel.deleteChannel);
 
 app.post('/channels/:channelname/join', channel.join);
 app.post('/channels/:channelname/leave', channel.leave);
+
+app.get('/channels/:channelname/messages', channel.listMessages);
+app.post('/channels/:channelname/messages', channel.addMessage);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
