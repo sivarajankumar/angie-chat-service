@@ -51,7 +51,7 @@ exports.updateUser = function(req, res){
 }
 
 exports.deleteUser = function(req, res){
-	var username = req.params.username.toLowerCase();
+	var username = req.params.username;
 	var user = _und.where(globals.userList, { id: username });
 	if ( user.length > 0 ) {
 		globals.userList = _und.reject(globals.userList, function(user) { return user.id === username; });
