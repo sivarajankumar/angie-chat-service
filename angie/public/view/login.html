@@ -1,0 +1,16 @@
+<form name='userLogin'>
+
+  <h2>Angie</h2>
+    <label for='loginnametext'>Enter your login name:</label>
+    <input type="text" id='loginnametext' ng-model='newuserid'></input>
+    <button ng-click='cancel()'>Cancel</button>
+    <button ng-click='loginUser()' ng-disabled='!newuserid'>Login</button>
+
+
+  <h2>Currently logged in users:</h2>
+  <ul>
+    <li class='chatper' ng-repeat='user in users.users | orderBy:"id"'>
+      <p>{{user.id}}</p>
+    </li>
+  </ul>
+</form>
