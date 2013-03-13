@@ -128,5 +128,9 @@ exports.addMessage = function(req, res) {
 exports.listMessages = function(req, res) {
 	var channelname = req.params.channelname;
 	var channel = (_und.where(globals.channelList, { name: channelname }))[0];
-	res.send(JSON.stringify(channel.messages));
+	if (channel !== undefined) {
+		res.send(JSON.stringify(channel.messages));
+	} else {
+		res.send('channelnotfound', 404);
+	}
 }
