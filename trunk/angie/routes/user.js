@@ -9,12 +9,13 @@ exports.findAll = function(req, res){
 };
 
 exports.createUser = function(req, res){
-	var username = req.body.username.toLowerCase();
+	// var username = req.body.username.toLowerCase();
+	var username = req.body.username;
 	var user = _und.where(globals.userList, { id: username });
 	if ( user.length > 0 ) {
 		res.send('userexists', 403);
-	} else if (validateUsername(username)) {
-		res.send('containsnonalphanumeric', 403);
+	// } else if (validateUsername(username)) {
+	// 	res.send('containsnonalphanumeric', 403);
 	} else {
 		globals.userList.push({ 
 								id: username
