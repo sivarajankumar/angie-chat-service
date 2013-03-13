@@ -1,0 +1,7 @@
+
+<form name='addChannel'>
+  <label for='channelContent'>Enter a name for this channel:</label>
+  <textarea id='channelContent' ng-model='channel.content'></textarea>
+  <button ng-click='cancel()'>Cancel</button>
+  <button ng-click='createChannel()' ng-disabled='!channel.content'>Create Channel</button>
+</form>

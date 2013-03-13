@@ -1,0 +1,7 @@
+<ul class='channels' ng-show='show'>
+  <li ng-repeat='channel in channels | orderBy:orderValue'>
+    <div>#{{$index}}</div>
+    <div><a href ng-click='onDelete(channel.id)'>delete</a></div>
+    <p>{{channel.content}}</p>
+  </li>
+<ul>
