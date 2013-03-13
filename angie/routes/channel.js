@@ -5,7 +5,7 @@ var validateChannelname = function(channelname) {
 }
 
 exports.findAll = function(req, res){
-  res.send(JSON.stringify(globals.channelList));
+  res.send(JSON.stringify( _und.pluck(globals.channelList, "name")));
 };
 
 exports.createChannel = function(req, res){
