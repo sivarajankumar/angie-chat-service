@@ -14,9 +14,9 @@ var express = require('express')
 var app = express();
 
 globals = {
-        userList: [{id: 'kjartan'}, {id: 'gunnar'}],
-        channelList: [  {name: 'cars', owner: 'kjartan', members: [] }
-                       , {name: 'bikes', owner: 'gunnar', members: [] } 
+        userList: [{id: 'Kjartan'}, {id: 'Böðvar'}],
+        channelList: [  {name: 'cars', owner: 'Kjartan', members: [] }
+                       , {name: 'bikes', owner: 'Böðvar', members: [] } 
                      ]
 }
 
