@@ -14,6 +14,7 @@ var express = require('express')
 var app = express();
 
 globals = {
+        openConnections: [],
         userList: [{id: 'Kjartan'}, {id: 'Böðvar'}],
         channelList: [  {
                           name: 'cars', 
@@ -23,10 +24,12 @@ globals = {
                             { 
                               poster: 'Kjartan',
                               message: 'Volvo er best'
+                              // streamed: false
                             },
                             {
                               poster: 'Böðvar',
                               message: 'Nei, toyota er best'
+                              // streamed: false
                             }
                           ]
                         }, 
@@ -38,10 +41,12 @@ globals = {
                             {
                               poster: 'Böðvar',
                               message: 'Trek er best'
+                              // streamed: false
                             },
                             {
                               poster: 'Kjartan',
                               message: 'Nei, mongoose er best'
+                              // streamed: false
                             }
                           ] 
                         } 
@@ -91,6 +96,8 @@ app.post('/channels/:channelname/leave', channel.leave);
 
 app.get('/channels/:channelname/messages', channel.listMessages);
 app.post('/channels/:channelname/messages', channel.addMessage);
+
+app.get('/channels/:channelname/messages/stream', channel.streamMessages);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

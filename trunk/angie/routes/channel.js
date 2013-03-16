@@ -1,5 +1,7 @@
 var _und = require('underscore');
 
+
+
 var validateChannelname = function(channelname) {
 	return (/[^a-zA-Z0-9]/.test(channelname));
 }
@@ -118,7 +120,8 @@ exports.addMessage = function(req, res) {
 		} else {
 			channel.messages.push({
 									poster: username,
-									message: message
+									message: message,
+									streamed: false
 								  });
 			res.send(username + " wrote: " + message + " on: " + channelname);
 		}
@@ -134,3 +137,53 @@ exports.listMessages = function(req, res) {
 		res.send('channelnotfound', 404);
 	}
 }
+
+exports.streamMessages = function(req, res) {
+	var channelname = req.params.channelname;
+	req.socket.setTimeout(Infinity);
+
+	res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
+    res.write('\n');
+
+    globals.openConnections.push(res);
+
+    req.on("close", function() {
+    	var toRemove;
+    	for ( var i = 0; globals.openConnections.length; i++) {
+    		if ( globals.openConnections[i] == res) {
+    			toRemove = i;
+    			break;
+    		}
+    	}
+    	globals.openConnections.splice(i,1);
+    	console.log(globals.openConnections.length);
+    });
+
+    setInterval(function() {
+	    // we walk through each connection
+	    globals.openConnections.forEach(function(resp) {
+	        var d = new Date();
+	        resp.write('id: ' + d.getMilliseconds() + '\n');
+	        resp.write('data:' + createMsg() +   '\n\n'); // Note the extra newline
+	    });
+ 
+	}, 1000);
+
+	function createMsg() {
+
+		var channel = (_und.where(globals.channelList, { name: channelname }))[0];
+		var messages = channel.messages;
+
+	    msg = {};
+	    msg.message = messages;
+	 
+	    return JSON.stringify(msg);
+	}
+}
+
+
+ 

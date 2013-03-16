@@ -8,6 +8,10 @@ var angieConfig = function($routeProvider) {
       controller: 'ListChannelController',
       templateUrl: 'view/channels.html'
     })
+    .when('/channels/:channelName/stream', {
+      controller: 'StreamMessagesController',
+      templateUrl: 'view/channel.html'
+    })
     .when('/users/', {
       controller: 'UsersController',
       templateUrl: 'view/users.html'
