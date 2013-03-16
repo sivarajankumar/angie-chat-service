@@ -24,12 +24,10 @@ globals = {
                             { 
                               poster: 'Kjartan',
                               message: 'Volvo er best'
-                              // streamed: false
                             },
                             {
                               poster: 'Böðvar',
                               message: 'Nei, toyota er best'
-                              // streamed: false
                             }
                           ]
                         }, 
@@ -41,12 +39,10 @@ globals = {
                             {
                               poster: 'Böðvar',
                               message: 'Trek er best'
-                              // streamed: false
                             },
                             {
                               poster: 'Kjartan',
                               message: 'Nei, mongoose er best'
-                              // streamed: false
                             }
                           ] 
                         } 
