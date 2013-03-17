@@ -7,13 +7,17 @@ var validateChannelname = function(channelname) {
 }
 
 exports.findAll = function(req, res){
-  res.send(JSON.stringify( _und.pluck(globals.channelList, "name")));
+  // res.send(JSON.stringify( _und.pluck(globals.channelList, "name")));
+  res.send(globals.channelList);  // BS:  Ég þarf að fá lista af objectum með amk: name og owner.
+
 };
 
 exports.createChannel = function(req, res){
 	var channelname = req.body.channelname;
 	var username = req.body.username;
 	var user = _und.where(globals.userList, { id: username });
+	console.log("--------------");
+	console.log(globals.userList);
 	if ( user.length === 0 ) {
 		res.send('usernamenotfound', 403);
 	} else {
@@ -26,7 +30,8 @@ exports.createChannel = function(req, res){
 			globals.channelList.push({ 
 										name: channelname,
 										owner: username,
-										members: [] 
+										members: [],
+										messages: [] 
 									});
 			res.send("Creating a new channelname: " + channelname + ".");
 		}	 
