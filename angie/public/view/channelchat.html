@@ -1,0 +1,20 @@
+<h1>{{loggedInUserId}} is chatting on channel: {{channelName}}</h1>
+  <p>Currently logged in users: {{currentChannel.data.members}}</p>
+<!--  Það á að láta members skila lista af objectum.  Þegar það gerist á að nota ca. neðangreint:
+  <ul>
+    <li class='chatper' ng-repeat='member in currentChannel.data.members | orderBy:"id"'>
+      <p>{{member.id}}</p>
+    </li>
+  </ul>
+-->
+  <p>Messages:</p>
+<ul>
+  <li class='chatper' ng-repeat='msg in messages.data'>
+    <p><b>{{msg.poster}}</b>: {{msg.message}}</p>
+  </li>
+</ul>    
+<label for='loginnametext'>Chat:</label>
+<input type="text" id='chatmsg' ng-model='chatmsg' on-keyup="doChat();chatmsg.focus();" keys="[13]" autofocus></input>
+<button ng-click='doChat();chatmsg.focus();' ng-disabled='!chatmsg'>Send</button>
+</br>
+<button ng-click='leaveChannel()'>Leave this channel</button>
