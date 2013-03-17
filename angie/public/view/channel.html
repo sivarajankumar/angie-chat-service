@@ -1,1 +1,5 @@
-<p>{{msg.message}}</p>
+<ul>
+<li class='chatper' ng-repeat='m in msg.message'>
+    <p><b>{{m.poster}}</b>: {{m.message}}</p>
+  </li>
+</ul>
