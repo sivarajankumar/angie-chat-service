@@ -11,7 +11,31 @@ Angie.service('UserModel',
       return responseData;
     };
     this.loginUser = function(userId) {
-      // TODO: POST /user
+      // TODO: POST /users
+      var theurl = '/users/';
+/*
+      $http({
+            method: 'POST', 
+            url: theurl,
+            data: { username: userId },
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+           }).
+        success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+          // when the response is available
+        }).
+          error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+           // or server returns response with an error status.
+      });*/
+
+      $http({
+          method: 'POST',
+          url: theurl,
+          data: { username: userId }
+        //  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+/*
       var now = new Date();
       var channel = {
         id: now
@@ -27,6 +51,7 @@ Angie.service('UserModel',
       }else{
         return; // RETURN FALSE!  No login, already logged in.
       }
+      */
     };
     this.logoutUser = function(userId) {
       // TODO: DELETE /user/:id

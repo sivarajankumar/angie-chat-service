@@ -1,7 +1,9 @@
 
 <form name='addChannel'>
-  <label for='channelContent'>Enter a name for this channel:</label>
-  <textarea id='channelContent' ng-model='channel.content'></textarea>
+  <label for='channelContent'>Enter a name for this new channel:</label>
+  <input type="text" id='channelname' ng-model='newchannelname' on-keyup="createChannel()" keys="[13]" autofocus></input>
+
+  <button ng-click='createChannel()' ng-disabled='!newchannelname'>Create Channel</button>
+  </br>
   <button ng-click='cancel()'>Cancel</button>
-  <button ng-click='createChannel()' ng-disabled='!channel.content'>Create Channel</button>
 </form>

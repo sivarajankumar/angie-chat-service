@@ -10,7 +10,7 @@ Angie.controller('UsersController',
     $scope.onDelete = function(channelId) {
       var confirmDelete = confirm('Are you sure you want to delete this channel?');
       if (confirmDelete) {
-        $location.path('/deleteChannel/' + $routeParams.userId + '/' + channelId);
+        $location.path('/angiedeleteChannel/' + $routeParams.userId + '/' + channelId);
       }
     };
   }
@@ -18,19 +18,20 @@ Angie.controller('UsersController',
 
 Angie.controller('LoginUserController',
   function ($scope, $http, $location, $routeParams, UserModel) {
+
     var users = UserModel.getUsers();
     $scope.users = users;
-    //$scope.loggedInUserId = $routeParams.userId;
+    $scope.loggedInUserId = $routeParams.userId;
 
-    var userId = $routeParams.userId; //?? hmm
+    var userId = $routeParams.userId;
     $scope.cancel = function() {
       $location.path('/');
     }
     $scope.loginUser = function() {
-      $scope.LoggedInUserId = $scope.newuserid;
-      userId = $scope.newuserid;
-      UserModel.loginUser(userId);
-      $location.path('/channels/' + userId);
+      $scope.loggedInUserId = $scope.newuserid; // $routeParams.userId;
+      UserModel.loginUser($scope.newuserid);
+      $location.path('/angiemain/' + $scope.newuserid);
     }
+
   }
 );
