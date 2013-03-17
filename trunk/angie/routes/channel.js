@@ -125,8 +125,7 @@ exports.addMessage = function(req, res) {
 		} else {
 			channel.messages.push({
 									poster: username,
-									message: message,
-									streamed: false
+									message: message
 								  });
 			res.send(username + " wrote: " + message + " on: " + channelname);
 		}
