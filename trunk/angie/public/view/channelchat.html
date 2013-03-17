@@ -1,5 +1,4 @@
 <h1>{{loggedInUserId}} is chatting on channel: {{channelName}}</h1>
-  <p>Currently logged in users: {{currentChannel.data.members}}</p>
 <!--  Það á að láta members skila lista af objectum.  Þegar það gerist á að nota ca. neðangreint:
   <ul>
     <li class='chatper' ng-repeat='member in currentChannel.data.members | orderBy:"id"'>
@@ -9,6 +8,7 @@
 -->
   <p>Messages:</p>
 <div ng-controller="StreamMessagesController">
+  <p>Currently logged in users: {{msg.members}}</p>
   <ul>
     <li class='chatper' ng-repeat='m in msg.message'>
       <p><b>{{m.poster}}</b>: {{m.message}}</p>
