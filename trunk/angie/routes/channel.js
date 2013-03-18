@@ -182,10 +182,13 @@ exports.streamMessages = function(req, res) {
 		var channel = (_und.where(globals.channelList, { name: channelname }))[0];
 		var messages = channel.messages;
 		var members = channel.members;
+		var owner = channel.owner;
 
 	    msg = {};
 	    msg.message = messages;
 	    msg.members = members;
+	    msg.channelname = channelname;
+	    msg.owner = owner;
 	 
 	    return JSON.stringify(msg);
 	}
