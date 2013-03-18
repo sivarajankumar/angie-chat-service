@@ -5,7 +5,8 @@
     <label for='loginnametext'>Enter your login name:</label><br>
     <input type="text" id='loginnametext' ng-model='newuserid' on-keyup="loginUser()" keys="[13]" autofocus></input>
 
+	<button class="button-link" ng-click='loginUser()' ng-disabled='!newuserid'>Login</button>
 
-    <button class="button-link" ng-click='loginUser()' ng-disabled='!newuserid'>Login</button>
+	<span ng-class="{ errors : userexists == true, noerror : userexists == false}">Username exists</span>
   </div>
 </form>

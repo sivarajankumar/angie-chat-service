@@ -10,9 +10,10 @@ Angie.service('UserModel',
 
       return responseData;
     };
-    this.loginUser = function(userId) {
+    this.loginUser = function(userId, callback) {
       // TODO: POST /users
       var theurl = '/users/';
+      var responseData = {};
 /*
       $http({
             method: 'POST', 
@@ -34,6 +35,10 @@ Angie.service('UserModel',
           url: theurl,
           data: { username: userId }
         //  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).success(function(data, status) {
+        callback(data);
+      }).error(function(data, status) {
+        callback(data);
       });
 /*
       var now = new Date();
