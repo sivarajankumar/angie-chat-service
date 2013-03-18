@@ -1,29 +1,25 @@
-|<!-- main-->
-<p>You are logged in as <b>{{loggedInUserId}} </b> </p>
-<p>
-  <a href='#/angieaddChannel/{{loggedInUserId}}'>Create a new channel</a>  
-</p>
-<p>
-  List of available channels:
-</p>
-<ul>
-  <li class='channels' ng-repeat='channel in channels.data | orderBy:"name"'>
-    <h2>{{channel.name}}</h2>
-    <p>Owner of the channel is: {{channel.owner}}</p>
-    <!-- <p>{{channel.description}}</p>  -->
-    <p>
-      <a href='#/angiemain/{{loggedInUserId}}/{{channel.name}}'>
-        {{channel.members.length}}
-        <span ng-show='channel.members.length == 1'>member joined</span>
-        <span ng-show='channel.members.length != 1'>members joined</span>
-      </a>
-      |<!-- TODO:  joinChannel stuff -->
-      <a href='#/angiejoinChannel/{{channel.name}}/{{loggedInUserId}}'>.test.</a>
-      <button ng-click='joinChannel(channel.name)'>Join this channel</button>
-      </br>
-      <span ng-show='channel.name == selectedChannelName'>{{channel.members}}</span>
+<div class="container">
+  <p>You are logged in as <b>{{loggedInUserId}} </b> </p>
+  <p>
+    <a href='#/angieaddChannel/{{loggedInUserId}}'>Create a new channel</a>  
+  </p>
+  <p>
+    List of available channels:
+  </p>
+  <ul>
+    <li class='channels' ng-repeat='channel in channels.data | orderBy:"name"'>
+      <h2>{{channel.name}}</h2>
+        <a href='#/angiemain/{{loggedInUserId}}/{{channel.name}}'>
+          {{channel.members.length}}
+          <span ng-show='channel.members.length == 1'>member joined</span>
+          <span ng-show='channel.members.length != 1'>members joined</span>
+        </a>
+        <button ng-click='joinChannel(channel.name)'>Join</button>
+        </br>
+        <span ng-show='channel.name == selectedChannelName'>{{channel.members}}</span>
+       
+      </p>
      
-    </p>
-   
-  </li>
+    </li>
+</div>
 </ul>
