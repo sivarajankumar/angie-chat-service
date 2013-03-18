@@ -1,8 +1,27 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: lightgray;
 }
 
 a {
   color: #00B7FF;
+}
+
+.users {
+	float: right;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+.container {
+	width: 900px;
+	margin: auto;
+	background: gainsboro;
+	padding: 10px;
+	border: 1px solid darkgray;
+	border-radius: 5px;
 }

@@ -24,9 +24,7 @@ Angie.controller('LoginUserController',
     $scope.loggedInUserId = $routeParams.userId;
 
     var userId = $routeParams.userId;
-    $scope.cancel = function() {
-      $location.path('/');
-    }
+    
     $scope.loginUser = function() {
       $scope.loggedInUserId = $scope.newuserid; // $routeParams.userId;
       UserModel.loginUser($scope.newuserid);
