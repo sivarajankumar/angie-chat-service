@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: lightgray;
 }
 
@@ -10,11 +10,25 @@ a {
 
 .users {
 	float: right;
+	background: lightgray;
+	border-radius: 5px;
+	padding: 10px;
 }
 
-ul
-{
+ul {
     list-style-type: none;
+}
+
+input {
+	min-height: 30px;
+	min-width: 180px;
+	margin: 10px 0;
+}
+
+button {
+	min-height: 30px;
+	font-weight: bold;
+	font-size: 17px;
 }
 
 .container {
