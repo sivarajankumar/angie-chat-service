@@ -1,15 +1,18 @@
 Angie.controller('StreamMessagesController',
   function ($scope, $location, $routeParams, ChannelModel) {
-    var channelName = $routeParams.channelName;
+    $scope.channelName = $routeParams.channelName;
     $scope.msg = {};
 
     var handleCallback = function (msg) {
-        $scope.$apply(function () {
-        $scope.msg = JSON.parse(msg.data)
-      });
+        var message = JSON.parse(msg.data);
+        if( $scope.channelName === message.channelname) {
+          $scope.$apply(function () {
+            $scope.msg = message;
+          });
+        }
     }
 
-    var source = new EventSource('/channels/' + channelName + '/messages/stream');
+    var source = new EventSource('/channels/' + $scope.channelName + '/messages/stream');
     source.addEventListener('message', handleCallback, false);
   }
 );
