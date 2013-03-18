@@ -39,3 +39,15 @@ button {
 	border: 1px solid darkgray;
 	border-radius: 5px;
 }
+
+.errors {
+	display: block;
+	font-size: 10px;
+	color: red;
+}
+
+.noerror {
+	display: none;
+	font-size: 10px;
+	color: red;	
+}

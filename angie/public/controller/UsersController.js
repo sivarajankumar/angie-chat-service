@@ -22,13 +22,22 @@ Angie.controller('LoginUserController',
     var users = UserModel.getUsers();
     $scope.users = users;
     $scope.loggedInUserId = $routeParams.userId;
+    $scope.userexists = false;
 
     var userId = $routeParams.userId;
+
+    var handleCallback = function (msg) {
+        if(msg !== "userexists") {
+          $location.path('/angiemain/' + $scope.newuserid);
+          $scope.userexists = false;
+        } else {
+          $scope.userexists = true; 
+        }
+    }
     
     $scope.loginUser = function() {
       $scope.loggedInUserId = $scope.newuserid; // $routeParams.userId;
-      UserModel.loginUser($scope.newuserid);
-      $location.path('/angiemain/' + $scope.newuserid);
+      UserModel.loginUser($scope.newuserid, handleCallback);
     }
 
   }
