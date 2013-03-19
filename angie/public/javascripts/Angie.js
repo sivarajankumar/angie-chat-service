@@ -1,3 +1,4 @@
+
 var angieConfig = function($routeProvider) {
   $routeProvider
     .when('/', {
@@ -21,7 +22,7 @@ var angieConfig = function($routeProvider) {
       templateUrl: 'view/users.html'
     })  
     .when('/angiechannels/:channelName/chat/:userId', {
-      controller: 'StreamMessagesController',  // 'ChatChannelController',
+      controller: 'StreamMessagesController',  
       templateUrl: 'view/channelchat.html'
     })    
     .when('/angieaddChannel/:userId', {
