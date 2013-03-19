@@ -15,8 +15,8 @@ var app = express();
 
 globals = {
         openConnections: [],
-        userList: [{id: 'Kjartan'}, {id: 'Böðvar'}],
-        channelList: [  {
+        userList: [/*{id: 'Kjartan'}, {id: 'Böðvar'}*/],
+        channelList: [ /* {
                           name: 'cars', 
                           owner: 'Kjartan', 
                           members: [] , 
@@ -45,7 +45,7 @@ globals = {
                               message: 'Nei, mongoose er best'
                             }
                           ] 
-                        } 
+                        } */
                      ]
 }
 
