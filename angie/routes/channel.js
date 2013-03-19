@@ -156,14 +156,16 @@ exports.streamMessages = function(req, res) {
     globals.openConnections.push(res);
 
     req.on("close", function() {
-    	var toRemove;
+    	var toRemove = -1;
     	for ( var i = 0; globals.openConnections.length; i++) {
     		if ( globals.openConnections[i] == res) {
     			toRemove = i;
     			break;
     		}
     	}
-    	globals.openConnections.splice(i,1);
+    	if (toRemove > -1){
+    	    globals.openConnections.splice(i,1);
+        }
     	console.log(globals.openConnections.length);
     });
 

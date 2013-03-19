@@ -4,6 +4,7 @@ Angie.controller('StreamMessagesController',
     $scope.loggedInUserId = $routeParams.userId;
     $scope.channelName = $routeParams.channelName;
     $scope.msg = {};
+    var source = new EventSource('/channels/' + $scope.channelName + '/messages/stream');
 
     var handleCallback = function (msg) {
 // <<<<<<< .mine
@@ -23,6 +24,7 @@ Angie.controller('StreamMessagesController',
     }
 
 //<<<<<<< .mine
+
     $scope.isActiveMemberinChannel = function() {
       if ($scope.msg.members !== undefined){
         if ($scope.msg.members.length > 0) {
@@ -33,6 +35,11 @@ Angie.controller('StreamMessagesController',
             }
           }
           if (kickmember){
+            source.removeEventListener('message', handleCallback, false);
+            // Fire a event (also very useful for testing and debugging!!)
+            // source.trigger('message', { mykey: 'myvalue' });
+            
+            //source.off('message');  // Unbind event listener!
             $location.path('/angiemain/' + $scope.loggedInUserId);
             //$scope.kickMember($scope.loggedInUserId);  // has already been kicked
             return false;
@@ -42,13 +49,36 @@ Angie.controller('StreamMessagesController',
       return true;  
     }
 
+
+    $scope.kickMember = function(memberid) {
+      ChannelModel.removeChannelMember($scope.channelName, memberid);
+      // source.removeEventListener('message', handleCallback, false);  // Þetta keyrist sjálfkrafa í isActiveMemberinChannel
+    }
+    $scope.return_SendChatMessageDelivered_callback = function() {  // það er kallað í þetta frá doChat, (sendChatMessage) fallinu, þegar HTTP POST fallið hefur skilað success.
+       $scope.chatmsg="";  // Hreinsa innsláttarsvæðið fyrir næstu skilaboð
+       $location.path('/angiechannels/' + $scope.channelName + '/chat/' + $scope.loggedInUserId);
+    }  
+
+    $scope.doChat = function() {
+      if ($scope.chatmsg.length == 0){ // Þegar ýtt er á enter hnappinn á ekki að senda message heldur bara að refresha skjáinn.
+      }else{
+        ChannelModel.sendChatMessage($scope.channelName, $scope.loggedInUserId, $scope.chatmsg, $scope.return_SendChatMessageDelivered_callback);
+      }
+    }
+
     $scope.kickMember = function(memberid) {
       ChannelModel.removeChannelMember($scope.channelName, memberid);
     }
 
+    $scope.leaveChannel = function() {
+      ChannelModel.removeChannelMember($scope.channelName, $scope.loggedInUserId);
+      //$location.path('/angiemain/' + $scope.loggedInUserId);
+    }
+
+//-----
 //    var source = new EventSource('/channels/' + channelName + '/messages/stream');
 //=======
-    var source = new EventSource('/channels/' + $scope.channelName + '/messages/stream');
+//    var source = new EventSource('/channels/' + $scope.channelName + '/messages/stream');
 //>>>>>>> .r19
     source.addEventListener('message', handleCallback, false);
   }
