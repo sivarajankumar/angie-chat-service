@@ -9,7 +9,8 @@
 -->
 <div class="container">
   <h1>#{{channelName}}</h1>
-    <div ng-controller="StreamMessagesController" ng-show='isActiveMemberinChannel();'>
+<!--     <div ng-controller="StreamMessagesController" ng-show='isActiveMemberinChannel();'>   --> 
+      <div ng-show='isActiveMemberinChannel();'>
       <!-- <p>{{msg.owner}} is the channel owner.</p> -->
       <!-- <p>Currently logged in users: #{{msg.members.length}}  {{msg.members}}</p> -->
       <div class="users">
@@ -35,7 +36,8 @@
     </br>
     <button ng-click='leaveChannel()'>Leave this channel</button>
     <!--   ng-show='channelOwner == loggedInUserId'   -->
-      <div ng-controller="StreamMessagesController" ng-show='(msg.owner == loggedInUserId)' ng-init="localmembers = ['Böðvar','Kjartan']">
+    <!--       <div ng-controller="StreamMessagesController" ng-show='(msg.owner == loggedInUserId)' ng-init="localmembers = ['Böðvar','Kjartan']">  -->
+      <div ng-show='(msg.owner == loggedInUserId)' ng-init="localmembers = ['Böðvar','Kjartan']">
         To kick a person, just click its name below: 
         <ul >
                   <button  ng-repeat="member in msg.members" ng-show='!(member == loggedInUserId)' ng-click='kickMember(member)'>{{member}}</button>
