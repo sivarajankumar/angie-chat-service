@@ -14,7 +14,11 @@ Angie.service('ChannelModel',
         // this callback will be called asynchronously
           // when the response is available
           chatChannelController_refreshChat_callback(); // call the page refresh link
-        });
+      }).
+        error(function(data, status, headers, config) {
+          //$scope.data = data || "Request failed";
+          $scope.getstatus = status;
+      });
 
            
 
@@ -42,9 +46,13 @@ Angie.service('ChannelModel',
     this.getChannelByNameWithCallback = function(channelName,callbackfunction) {
       // TODO: GET /channels/:channelname   
       var responseData = {};
-      $http.get('/channels/' + channelName).success(function(data) {
+      $http.get('/channels/' + channelName).success(function(data, status) {
         responseData.data = data;
         callbackfunction(responseData);  // Send the new data to the callback function
+      }).
+        error(function(data, status) {
+          //$scope.data = data || "Request failed";
+          $scope.getstatus = status;
       });
       return responseData;
     };    
