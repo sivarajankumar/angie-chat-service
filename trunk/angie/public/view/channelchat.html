@@ -1,3 +1,50 @@
+<!-- <<<<<<< .mine -->
+<!-- <h1>{{loggedInUserId}} is chatting on channel: {{channelName}}</h1> -->
+<!--  Það á að láta members skila lista af objectum.  Þegar það gerist á að nota ca. neðangreint:
+  <ul>
+    <li class='chatper' ng-repeat='member in currentChannel.data.members | orderBy:"id"'>
+      <p>{{member.id}}</p>
+    </li>
+  </ul>
+-->
+<div class="container">
+  <h1>#{{channelName}}</h1>
+    <div ng-controller="StreamMessagesController" ng-show='isActiveMemberinChannel();'>
+      <!-- <p>{{msg.owner}} is the channel owner.</p> -->
+      <!-- <p>Currently logged in users: #{{msg.members.length}}  {{msg.members}}</p> -->
+      <div class="users">
+        <p>Users:</p>
+        <ul>
+          <li class='chatper' ng-repeat='member in msg.members'>
+            <p>{{member}}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="messages">
+        <p>Messages:</p>
+        <ul>
+          <li class='chatper' ng-repeat='m in msg.message'>
+            <p><b>{{m.poster}}</b>: {{m.message}}</p>
+          </li>
+        </ul>
+      </div>  
+    </div>  
+    <label for='loginnametext'>Chat:</label>
+    <input type="text" id='chatmsg' ng-model='chatmsg' on-keyup="doChat();chatmsg.focus();" keys="[13]" autofocus></input>
+    <button ng-click='doChat();chatmsg.focus();' ng-disabled='!chatmsg'>Send</button>
+    </br>
+    <button ng-click='leaveChannel()'>Leave this channel</button>
+    <!--   ng-show='channelOwner == loggedInUserId'   -->
+      <div ng-controller="StreamMessagesController" ng-show='(msg.owner == loggedInUserId)' ng-init="localmembers = ['Böðvar','Kjartan']">
+        To kick a person, just click its name below: 
+        <ul >
+                  <button  ng-repeat="member in msg.members" ng-show='!(member == loggedInUserId)' ng-click='kickMember(member)'>{{member}}</button>
+        </ul>
+      </div>
+    </div>
+
+
+<!-- =======
 <div class="container">
   <h1>#{{channelName}}</h1>
     
@@ -26,3 +73,4 @@
   </br>
   <button ng-click='leaveChannel()'>Leave this channel</button>
 </div>
+>>>>>>> .r19 -->
